@@ -1,4 +1,5 @@
 using DSharpPlus.SlashCommands;
+using WeatherCord.Call.Geocoder;
 
 namespace WeatherCord.Commands;
 
@@ -13,6 +14,6 @@ public class Current : ApplicationCommandModule
          Choice("imperial", "imperial")]
         string unit = "metric")
     {
-        await ctx.CreateResponseAsync($"Stuff {location} {unit}");
+        await ctx.CreateResponseAsync(Geocoder.Get(location)[0]);
     }
 }

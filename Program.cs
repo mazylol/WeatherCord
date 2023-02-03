@@ -9,6 +9,8 @@ namespace WeatherCord
 {
     class Program
     {
+        public static string WeatherApiKey;
+        
         static void Main()
         {
             MainAsync().GetAwaiter().GetResult();
@@ -19,6 +21,7 @@ namespace WeatherCord
             Env.TraversePath().Load();
             var discordToken = Env.GetString("DEV_TOKEN");
             var guildId = Convert.ToUInt64(Env.GetString("GUILD_ID"));
+            WeatherApiKey = Env.GetString("WEATHER_API_KEY");
 
             var discord = new DiscordClient(new DiscordConfiguration()
             {

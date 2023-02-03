@@ -2,6 +2,8 @@
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.SlashCommands;
+using WeatherCord.Commands;
 
 namespace WeatherCord
 {
@@ -26,6 +28,10 @@ namespace WeatherCord
             });
 
             discord.Ready += DiscordReady;
+
+            var slash = discord.UseSlashCommands();
+
+            slash.RegisterCommands<Current>(guildId);
 
             await discord.ConnectAsync();
             await Task.Delay(-1);

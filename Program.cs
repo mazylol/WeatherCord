@@ -3,13 +3,14 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.SlashCommands;
+using Microsoft.Extensions.Logging;
 using WeatherCord.Commands;
 
 namespace WeatherCord
 {
     class Program
     {
-        public static string WeatherApiKey;
+        public static string WeatherApiKey = null!;
         
         static void Main()
         {
@@ -27,7 +28,8 @@ namespace WeatherCord
             {
                 Token = discordToken,
                 TokenType = TokenType.Bot,
-                Intents = DiscordIntents.AllUnprivileged
+                Intents = DiscordIntents.AllUnprivileged,
+                MinimumLogLevel = LogLevel.Debug
             });
 
             discord.Ready += DiscordReady;

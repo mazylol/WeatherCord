@@ -14,4 +14,8 @@
         <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Call\Weather\Models" />
+    </ItemGroup>
+
 </Project>

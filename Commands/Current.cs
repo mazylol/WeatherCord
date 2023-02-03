@@ -1,3 +1,4 @@
+using System.Globalization;
 using DSharpPlus.SlashCommands;
 using WeatherCord.Call.Geocoder;
 
@@ -14,6 +15,7 @@ public class Current : ApplicationCommandModule
          Choice("imperial", "imperial")]
         string unit = "metric")
     {
-        await ctx.CreateResponseAsync(Geocoder.Get(location)[0]);
+        var d = Geocoder.Get(location)![0];
+        await ctx.CreateResponseAsync(d.lat.ToString(CultureInfo.InvariantCulture));
     }
 }

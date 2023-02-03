@@ -1,11 +1,13 @@
 ﻿using System.Net.Http.Headers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WeatherCord.Call.Geocoder.Models;
 
 namespace WeatherCord.Call.Geocoder;
 
 public class Geocoder
 {
-    public static string?[] Get(string location)
+    public static List<RootObject>? Get(string location)
     {
         using var client = new HttpClient();
         client.BaseAddress =
@@ -16,22 +18,17 @@ public class Geocoder
             new MediaTypeWithQualityHeaderValue("application/json"));
         
         var response = client.GetAsync(client.BaseAddress).Result;
-
-        string?[] output = new string[] { };
-
+        
         if (response.IsSuccessStatusCode)
         {
             var res = Task.FromResult(response.Content.ReadAsStringAsync().Result).Result;
-            var getResult = JObject.Parse(res);
-            
-            var arr = new string?[2];
-            arr[0] = getResult[0]?["lat"]?.ToString();
-            arr[1] = getResult[0]?["lon"]?.ToString();
 
-            output = arr;
+            List<RootObject>? data = JsonConvert.DeserializeObject<List<RootObject>>(res);
+
+            return data;
         }
 
-        return output;
+        return null;
     }
 }
 

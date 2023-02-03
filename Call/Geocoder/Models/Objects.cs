@@ -36,7 +36,7 @@ public class Local_names
     public string ps { get; set; }
     public string ru { get; set; }
     public string tg { get; set; }
-    public string is { get; set; }
+    public string @is { get; set; }
     public string am { get; set; }
     public string os { get; set; }
     public string bo { get; set; }

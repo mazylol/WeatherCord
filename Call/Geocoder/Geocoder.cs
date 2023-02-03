@@ -1,6 +1,5 @@
 ﻿using System.Net.Http.Headers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using WeatherCord.Call.Geocoder.Models;
 
 namespace WeatherCord.Call.Geocoder;

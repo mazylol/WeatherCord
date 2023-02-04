@@ -11,7 +11,7 @@ namespace WeatherCord
     class Program
     {
         public static string WeatherApiKey = null!;
-        
+
         static void Main()
         {
             MainAsync().GetAwaiter().GetResult();

@@ -12,23 +12,15 @@ public class Geocoder
         client.BaseAddress =
             new Uri(
                 $"https://api.openweathermap.org/geo/1.0/direct?q={location.Replace("\\s", "")}&limit=1&appid={Program.WeatherApiKey}");
-        
+
         client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         
         var response = client.GetAsync(client.BaseAddress).Result;
-        
-        if (response.IsSuccessStatusCode)
-        {
-            var res = Task.FromResult(response.Content.ReadAsStringAsync().Result).Result;
 
-            List<RootObject>? data = JsonConvert.DeserializeObject<List<RootObject>>(res);
+        if (!response.IsSuccessStatusCode) return null;
+        var res = Task.FromResult(response.Content.ReadAsStringAsync().Result).Result;
 
-            return data;
-        }
-
-        return null;
+        return JsonConvert.DeserializeObject<List<RootObject>>(res);
     }
 }
-
-// remember, use return value with .Result

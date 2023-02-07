@@ -37,6 +37,7 @@ namespace Interactivity
             var slash = discord.UseSlashCommands();
 
             slash.RegisterCommands<Current>(guildId);
+            slash.RegisterCommands<Forecast>(guildId);
 
             await discord.ConnectAsync();
             await Task.Delay(-1);

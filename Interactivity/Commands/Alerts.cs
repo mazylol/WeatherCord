@@ -1,38 +1,39 @@
-﻿using DSharpPlus.SlashCommands;
+﻿using DSharpPlus.Entities;
+using DSharpPlus.SlashCommands;
 using MongoDB.Bson;
 
 namespace Interactivity.Commands;
 
 public class Alerts : ApplicationCommandModule
 {
-    [SlashCommand("add", "add some data to the database")]
-    public static async Task AddCommand(InteractionContext ctx, [Option("input", "the data to add")] string input)
+    [SlashCommandGroup("alerts", "national weather alerts")]
+    public class AlertGroup
     {
-        if (input == "")
-        {
-            await ctx.CreateResponseAsync("Empty input");
-        }
-        else
+        // still need to check for correct channel type and if the server is already subscribed
+        [SlashCommand("subscribe", "subscribe to alerts")]
+        public static async Task SubscribeCommand(InteractionContext ctx,
+            [Option("channel", "the channel to send alerts to")]
+            DiscordChannel channel)
         {
             var db = Program.DbClient?.GetDatabase("add");
-            var coll = db?.GetCollection<DbAdd>("stuff");
+            var coll = db?.GetCollection<DataModel>("stuff");
 
-            var insert = new DbAdd
+            var insert = new DataModel
             {
-                Author = ctx.Member.DisplayName,
-                Input = input
+                Guild = ctx.Guild.Id,
+                Channel = channel.Id
             };
 
             coll?.InsertOneAsync(insert);
 
-            await ctx.CreateResponseAsync("Added to database!");
+            await ctx.CreateResponseAsync($"Subscribed to alerts in {channel.Mention}");
         }
     }
 }
 
-internal class DbAdd
+internal class DataModel
 {
     public ObjectId Id { get; set; }
-    public string? Author { get; set; }
-    public string? Input { get; set; }
+    public ulong Guild { get; set; }
+    public ulong Channel { get; set; }
 }

@@ -31,7 +31,7 @@ namespace Interactivity
 
             var uri = Env.GetString("MONGO_URI");
             var pack = new ConventionPack { new CamelCaseElementNameConvention() };
-            ConventionRegistry.Register("elementNameConvention", pack, x => true);
+            ConventionRegistry.Register("elementNameConvention", pack, _ => true);
 
             DbClient = new MongoClient(uri);
 
@@ -48,7 +48,6 @@ namespace Interactivity
             var slash = discord.UseSlashCommands();
 
             slash.RegisterCommands<Current>(guildId);
-            slash.RegisterCommands<Forecast>(guildId);
             slash.RegisterCommands<Alerts>(guildId);
 
             await discord.ConnectAsync();

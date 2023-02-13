@@ -10,7 +10,7 @@ using MongoDB.Driver;
 
 namespace Interactivity
 {
-    class Program
+    internal abstract class Program
     {
         public static string WeatherApiKey = null!;
 

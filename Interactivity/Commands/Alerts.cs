@@ -1,6 +1,9 @@
-﻿using DSharpPlus.Entities;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using MongoDB.Bson;
+using MongoDB.Driver;
+using static MongoDB.Driver.Builders<Interactivity.Commands.DataModel>;
 
 namespace Interactivity.Commands;
 
@@ -9,7 +12,6 @@ public class Alerts : ApplicationCommandModule
     [SlashCommandGroup("alerts", "national weather alerts")]
     public class AlertGroup
     {
-        // still need to check for correct channel type and if the server is already subscribed
         [SlashCommand("subscribe", "subscribe to alerts")]
         public static async Task SubscribeCommand(InteractionContext ctx,
             [Option("channel", "the channel to send alerts to")]
@@ -17,6 +19,20 @@ public class Alerts : ApplicationCommandModule
         {
             var db = Program.DbClient?.GetDatabase("add");
             var coll = db?.GetCollection<DataModel>("stuff");
+
+            var filter = Filter.Eq("guild", ctx.Guild.Id);
+
+            if (await coll.Find(filter).AnyAsync())
+            {
+                await ctx.CreateResponseAsync("This server is already subscribed to alerts");
+                return;
+            }
+
+            if (channel.Type != ChannelType.Text)
+            {
+                await ctx.CreateResponseAsync("Channel must be a text channel");
+                return;
+            }
 
             var insert = new DataModel
             {

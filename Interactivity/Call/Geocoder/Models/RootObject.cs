@@ -2,10 +2,10 @@
 
 public class RootObject
 {
-    public string name { get; set; }
-    public Local_names local_names { get; set; }
-    public double lat { get; set; }
-    public double lon { get; set; }
-    public string country { get; set; }
-    public string state { get; set; }
+    public string? Name { get; set; }
+    public LocalNames? LocalNames { get; set; }
+    public double? Lat { get; set; }
+    public double? Lon { get; set; }
+    public string? Country { get; set; }
+    public string? State { get; set; }
 }

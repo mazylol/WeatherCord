@@ -12,7 +12,7 @@ public class CurrentCall
 
         using var client = new HttpClient();
         client.BaseAddress = new Uri(
-            $"https://api.openweathermap.org/data/2.5/weather?lat={d.lat}&lon={d.lon}&units={unit}&appid={Program.WeatherApiKey}");
+            $"https://api.openweathermap.org/data/2.5/weather?lat={d.Lat}&lon={d.Lon}&units={unit}&appid={Program.WeatherApiKey}");
 
         client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));

@@ -35,7 +35,7 @@ namespace Interactivity
 
             DbClient = new MongoClient(uri);
 
-            var discord = new DiscordClient(new DiscordConfiguration()
+            var discord = new DiscordClient(new DiscordConfiguration
             {
                 Token = discordToken,
                 TokenType = TokenType.Bot,

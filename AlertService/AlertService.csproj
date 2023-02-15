@@ -6,18 +6,4 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="DotNetEnv"/>
-        <PackageReference Include="DSharpPlus"/>
-        <PackageReference Include="DSharpPlus.SlashCommands"/>
-        <PackageReference Include="MongoDB.Analyzer"/>
-        <PackageReference Include="MongoDB.Driver"/>
-        <PackageReference Remove="MongoDB.Driver"/>
-        <PackageReference Remove="DSharpPlus"/>
-        <PackageReference Remove="DSharpPlus.SlashCommands"/>
-        <PackageReference Remove="DotNetEnv"/>
-        <PackageReference Remove="MongoDB.Analyzer"/>
-    </ItemGroup>
-
 </Project>

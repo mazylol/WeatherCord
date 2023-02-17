@@ -1,6 +1,7 @@
 ﻿using DotNetEnv;
 using DSharpPlus;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
@@ -39,7 +40,25 @@ namespace AlertService
             });
 
             await discord.ConnectAsync();
-            await Task.Delay(-1);
+
+            var db = DbClient.GetDatabase("add");
+            var coll = db.GetCollection<DataModel>("stuff");
+
+            var cursor = coll.AsQueryable();
+
+            foreach (var document in cursor)
+            {
+                Console.WriteLine(document.Guild);
+            }
+
+            Environment.Exit(0);
         }
     }
+}
+
+internal class DataModel
+{
+    public ObjectId Id { get; set; }
+    public ulong Guild { get; set; }
+    public ulong Channel { get; set; }
 }

@@ -61,4 +61,6 @@ internal class DataModel
     public ObjectId Id { get; set; }
     public ulong Guild { get; set; }
     public ulong Channel { get; set; }
+    public double?[] Location { get; set; }
+    public string Unit { get; set; }
 }

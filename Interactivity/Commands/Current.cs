@@ -8,7 +8,7 @@ public class Current : ApplicationCommandModule
 {
     [SlashCommand("current", "current weather")]
     public static async Task CurrentCommand(InteractionContext ctx,
-        [Option("location", "town, city, address, etc")]
+        [Option("location", "town, city, etc")]
         string location,
         [Option("unit", "units of measure (defaults to metric)"), Choice("metric", "metric"),
          Choice("kelvin", "standard"),
